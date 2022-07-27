@@ -25,14 +25,16 @@ project_folder=./demo_data
 #project_folder=${diskbase}/ford-dataset/IJRR-Dataset-1
 #MIMAP
 #project_folder=${diskbase}/mimap-dataset/mimap_in_slam_00
+#luminar
+project_folder=./luminar
 
 #point cloud format (selecting from pcd, ply, las, txt, h5, csv, bin)
-pc_format=pcd
+# pc_format=pcd
 #pc_format=ply
 #pc_format=h5
 #pc_format=txt
 #pc_format=las
-#pc_format=csv
+pc_format=csv
 #pc_format=bin
 
 #input point cloud folder path
