@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # exit on errors
 set -e
 
@@ -11,7 +11,7 @@ NPROC=${NPROC:-$(nproc)}
 echo "Make sure your OS is Ubuntu 16.04, or you have to install these dependence on your own"
 echo "Begin to install all the dependent libs"
 
-mkdir dependent_libs
+mkdir -p dependent_libs
 cd dependent_libs
 echo "Create a new folder called dependent_libs at current path"
 
@@ -20,7 +20,7 @@ sudo apt-get install -y cmake cmake-curses-gui
 
 sudo apt-get install -y protobuf-compiler libprotobuf-dev libgoogle-glog-dev libgflags-dev
 
-function checkinstall-auto {
+checkinstall_auto() {
   name=$1
   version=$2
   shift 2
@@ -52,7 +52,7 @@ echo "install [pcl] done"
 #   cd build
 #   cmake ..
 #   make -j $NPROC
-#   checkinstall-auto libg2o-dev 0.0.0
+#   checkinstall_auto libg2o-dev 0.0.0
 # )
 # [ -z "$KEEP" ] && rm -rf g2o
 # echo "install [g2o] done"
@@ -63,16 +63,17 @@ sudo apt-get install -y libatlas-base-dev
 # SuiteSparse and CXSparse (optional)
 sudo apt-get install -y libsuitesparse-dev
 #clone ceres to local
-git clone -b 2.0.0 --depth 1 https://github.com/ceres-solver/ceres-solver.git
+git clone -b 2.1.0 --depth 1 https://github.com/ceres-solver/ceres-solver.git
 (
   cd ceres-solver
   mkdir build
   cd build
   cmake .. -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF -DBUILD_BENCHMARKS=OFF
   make -j $NPROC
-  checkinstall-auto libceres-dev 2.0.0
+  make install
+  checkinstall_auto libceres-dev 2.1.0
 )
-[ -z "$KEEP" ] && rm -rf ceres-solver
+#[ -z "$KEEP" ] && rm -rf ceres-solver
 echo "install [ceres] done"
 
 # echo "install [gtsam] 4.0"
@@ -86,7 +87,7 @@ echo "install [ceres] done"
 #   cd build
 #   cmake ..
 #   make -j $NPROC
-#   checkinstall-auto libgtsam-dev 1.14.0
+#   checkinstall_auto libgtsam-dev 1.14.0
 # )
 # [ -z "$KEEP" ] && rm -rf gtsam
 # echo "install [gtsam] done"
@@ -99,9 +100,9 @@ git clone --depth 1 https://github.com/strasdat/Sophus.git
   cd build
   cmake .. -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=OFF
   make -j $NPROC
-  checkinstall-auto libsophus-dev 0.0.0
+  checkinstall_auto libsophus-dev 0.0.0
 )
-[ -z "$KEEP" ] && rm -rf Sophus
+[ -z "$KEEP" ]# && rm -rf Sophus
 echo "install [sophus] done"
 
 echo "install [libLAS]"
@@ -115,9 +116,9 @@ git clone --depth 1 https://github.com/libLAS/libLAS.git
   cd build
   cmake .. -DWITH_TESTS=OFF
   make -j $NPROC
-  checkinstall-auto liblas-dev 0.0.0
+  checkinstall_auto liblas-dev 0.0.0
 )
-[ -z "$KEEP" ] && rm -rf libLAS
+[ -z "$KEEP" ]# && rm -rf libLAS
 echo "install [libLAS] done"
 
 echo "install [TEASER++]"
@@ -129,10 +130,10 @@ git clone --depth 1 https://github.com/MIT-SPARK/TEASER-plusplus.git
   cd build
   cmake .. -DBUILD_TESTS=OFF
   make -j $NPROC
-  checkinstall-auto libteaser-dev 0.0.0
+  checkinstall_auto libteaser-dev 0.0.0
   sudo ldconfig
 )
-[ -z "$KEEP" ] && rm -rf TEASER-plusplus
+[ -z "$KEEP" ]# && rm -rf TEASER-plusplus
 echo "install [TEASER++] done"
 
 echo "install [OpenCV]"
@@ -162,12 +163,9 @@ echo "Finished"
 
 cd ..
 
-echo "For the python toolboxes of the project"
-echo "install python dependence"
-python3 -m pip install --upgrade -r ./python/requirements.txt
-echo "install python dependence done"
+echo "Make sure to install dependencies with pip install --upgrade -r ./python/requirements.txt"
 
 # you might then delete the dependent_libs folder
-[ -z "$KEEP" ] && rm -rf ./dependent_libs
+[ -z "$KEEP" ]# && rm -rf ./dependent_libs
 
 # test pass on Ubuntu 16.04
