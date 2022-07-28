@@ -1,7 +1,7 @@
 #!/bin/sh
 
-target_folder=xxxx/xxxx
-file_format=.pcd
+target_folder=luminar/csv
+file_format=.csv
 file_head= ;
 file_extension= ;
 

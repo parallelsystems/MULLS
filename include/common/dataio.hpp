@@ -337,14 +337,15 @@ class DataIo : public CloudUtility<PointT>
             x_p = std::atof(trim_str(point_datastrings[1]).c_str()); //x
             y_p = std::atof(trim_str(point_datastrings[2]).c_str()); //y
             z_p = std::atof(trim_str(point_datastrings[3]).c_str()); //z
-            i_p = std::atof(trim_str(point_datastrings[4]).c_str()); //intensity
+            //i_p = std::atof(trim_str(point_datastrings[4]).c_str()); //intensity
+            i_p = 1.0;
             t_p = std::atof(trim_str(point_datastrings[0]).c_str()); //timestamp (pointwise)
 
             PointT pt;
             pt.x = x_p;
             pt.y = y_p;
             pt.z = z_p;
-            pt.intensity = i_p * 255 / 2; // Luminar Hydra reports reflectance [0, 2)
+            pt.intensity = i_p;
             pt.curvature = t_p * 0.001; //curvature as timestamp (unit: ms)
             cloud->points.push_back(pt);
 
