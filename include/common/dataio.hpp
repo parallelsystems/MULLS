@@ -334,11 +334,10 @@ class DataIo : public CloudUtility<PointT>
             }
             //order in mimap dataset:
             //"Points:x","Points:y","Points:z","intensity","laser_id","azimuth","distance_m","timestamp"
-            x_p = std::atof(trim_str(point_datastrings[1]).c_str()); //x
-            y_p = std::atof(trim_str(point_datastrings[2]).c_str()); //y
-            z_p = std::atof(trim_str(point_datastrings[3]).c_str()); //z
-            //i_p = std::atof(trim_str(point_datastrings[4]).c_str()); //intensity
-            i_p = 1.0;
+            x_p = -std::atof(trim_str(point_datastrings[2]).c_str()); //x
+            y_p = std::atof(trim_str(point_datastrings[3]).c_str()); //y
+            z_p = std::atof(trim_str(point_datastrings[1]).c_str()); //z
+            i_p = std::atof(trim_str(point_datastrings[4]).c_str()); //intensity
             t_p = std::atof(trim_str(point_datastrings[0]).c_str()); //timestamp (pointwise)
 
             PointT pt;

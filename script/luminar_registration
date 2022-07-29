@@ -9,9 +9,13 @@ spc_path=xxxx/dummy_source_point_cloud.xxx
 opc_path=xxxx/dummy_transformed_source_point_cloud.xxx
 
 #demo example
-tpc_path=./demo_data/pcd/000000.pcd
-spc_path=./demo_data/pcd/000015.pcd
-opc_path=./demo_data/result/000015_reg.pcd
+# tpc_path=./demo_data/pcd/000000.pcd
+# spc_path=./demo_data/pcd/000015.pcd
+# opc_path=./demo_data/result/000015_reg.pcd
+tpc_path=./luminar/csv/00000.csv
+spc_path=./luminar/csv/00099.csv
+opc_path=./luminar/csv/00099_reg.pcd
+
 
 #run
 #gdb --args \

@@ -12,7 +12,7 @@
 --min_dist_mapping=2.0
 --max_dist_mapping=80.0
 --map_downrate_output=6
---approx_scanner_height=1.3
+--approx_scanner_height=1.34
 --underground_height_thre=-6.0
 --cloud_down_res=0.0
 --unit_dist=10.0

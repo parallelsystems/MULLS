@@ -1,0 +1,18 @@
+#/usr/bin/python3
+
+import os
+import shutil
+
+ALOAM_DIR = "/home/jack/catkin_ws/src/A-LOAM/luminar/"
+SCENE = "0/"
+
+scene_dir = os.path.join(ALOAM_DIR, SCENE)
+
+with open(os.path.join(scene_dir, "files.txt"), "r") as f:
+    files = [l[:-1] for l in f.readlines()]
+
+for i, file in enumerate(files):
+    shutil.copy(
+        os.path.join(scene_dir, file),
+        f"/home/jack/mulls/luminar/csv/{i}.csv"
+    )

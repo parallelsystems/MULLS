@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+luminar/
+build/
+log/
+bin/
+demo_data/result/
+demo_data/pcd_filelist.txt
+.vscode/
