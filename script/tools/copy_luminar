@@ -1,18 +1,34 @@
-#/usr/bin/python3
+#!/usr/bin/python3
 
 import os
 import shutil
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('integers', metavar='N', type=int, nargs='+',
+                    help='an integer for the accumulator')
+args = parser.parse_args()
 
 ALOAM_DIR = "/home/jack/catkin_ws/src/A-LOAM/luminar/"
-SCENE = "0/"
+SCENE = str(args.integers[0]) + "/"
 
 scene_dir = os.path.join(ALOAM_DIR, SCENE)
 
 with open(os.path.join(scene_dir, "files.txt"), "r") as f:
     files = [l[:-1] for l in f.readlines()]
 
+if os.path.isdir("/home/jack/mulls/luminar/"):
+    shutil.rmtree("/home/jack/mulls/luminar/")
+
+os.makedirs("/home/jack/mulls/luminar/csv/", exist_ok=True)
+
+shutil.copy(os.path.join(scene_dir, "times.txt"), "/home/jack/mulls/luminar/")
+shutil.copy(os.path.join(scene_dir, "files.txt"), "/home/jack/mulls/luminar/")
+
 for i, file in enumerate(files):
     shutil.copy(
         os.path.join(scene_dir, file),
         f"/home/jack/mulls/luminar/csv/{i}.csv"
     )
+
+os.system("/home/jack/mulls/script/tools/batch_rename.sh")

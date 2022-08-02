@@ -1,0 +1,31 @@
+#!/usr/bin/python3
+import os, shutil
+
+MULLS_DIR = "/home/jack/mulls/"
+DONE_DIR = os.path.join(MULLS_DIR, "done/")
+
+# copy config for posterity
+shutil.copy(
+    os.path.join(MULLS_DIR, "script/config/luminar.txt"),
+    DONE_DIR
+)
+
+scenes = range(100)
+for scene in scenes:
+    print(f"Running scene {scene}")
+    scene = str(scene)
+    # copy files over
+    os.system(os.path.join(MULLS_DIR, "script/tools/copy_luminar") + " " + scene)
+
+    # run MULLS
+    os.system(os.path.join(MULLS_DIR, "script/luminar_slam"))
+
+    # delete CSVs because they take up space and we don't really need em after reconstruction
+    shutil.rmtree(os.path.join(MULLS_DIR, "luminar/csv"))
+
+    shutil.move(
+        os.path.join(MULLS_DIR, "luminar"),
+        os.path.join(DONE_DIR, scene + "/")
+    )
+
+os.system("/home/jack/railyard/odom_reproject.py")

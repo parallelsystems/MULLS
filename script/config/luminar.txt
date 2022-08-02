@@ -1,16 +1,22 @@
-- Luminar Hydra reports reflectance between 0 and 2
+-parameter list (standard for kitti dataset seq 01)
+---------------------------------------------------------------------------------------------------------------
 --vis_intensity_scale=2
-- Visualize intensity for color map
---vis_initial_color_type=3
-
---show_range_image=true
---show_bev_image=true
+--vis_map_history_down_rate=400
+--vis_map_history_keep_frame_num=250
+-color_map: intensity2=4, intensity=3, elevation=2, frame-wise=1, semantic=0
+--vis_initial_color_type=4
+--vis_pause_at_loop_closure=false
+--show_range_image=false
+--show_bev_image=false
+--write_out_map_on=true
+---------------------------------------------------------------------------------------------------------------
 --semantic_assist_on=false
+--adaptive_parameters_on=true
 --apply_dist_filter=true
 --min_dist_used=1.5
 --max_dist_used=120.0
 --min_dist_mapping=2.0
---max_dist_mapping=80.0
+--max_dist_mapping=40.0
 --map_downrate_output=6
 --approx_scanner_height=1.34
 --underground_height_thre=-6.0
@@ -80,7 +86,7 @@
 -weighting strategy for correspondences (1: on, 0: off, order: x,y,z balanced weight, residual weight, distance weight, intensity weight)
 --corr_weight_strategy=0111
 -used_feature_type: (1: on, 0: off, order: ground, pillar, facade, beam, roof, vetrex, the first three are compulsory)
---used_feature_type=111100
+--used_feature_type=111101
 -initial_guess_mode: (0: no initial guess, 1: uniform motion(translation only), 2: uniform motion(translation+rotation), 3:imu based)
 --initial_guess_mode=2
 ---------------------------------------------------------------------------------------------------------------

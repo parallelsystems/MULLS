@@ -43,7 +43,7 @@ DEFINE_int32(frame_num_begin, 0, "begin from this frame (file sequence in the fo
 DEFINE_int32(frame_num_end, 99999, "end at this frame (file sequence in the folder)");
 DEFINE_int32(frame_step, 1, "use one in ${frame_step} frames");
 //map related
-DEFINE_bool(write_out_map_on, false, "output map point clouds or not");
+DEFINE_bool(write_out_map_on, true, "output map point clouds or not");
 DEFINE_bool(write_out_gt_map_on, false, "output map point clouds generated from the gnssins pose or not");
 DEFINE_bool(write_map_each_frame, false, "output each frame's point cloud in map coordinate system");
 DEFINE_int32(map_downrate_output, 5, "downsampling rate for output map point cloud");
@@ -956,7 +956,7 @@ int main(int argc, char **argv)
         mviewer.update_submap_node(cblock_submaps, map_viewer, display_time_ms);
         mviewer.keep_visualize(map_viewer);
     }
-    if (FLAGS_write_out_map_on || FLAGS_write_out_gt_map_on) //export map point cloud //TODO: be careful of the memory problem here!!! //FIX memory leakage while outputing map point cloud
+    if (true || FLAGS_write_out_gt_map_on) //export map point cloud //TODO: be careful of the memory problem here!!! //FIX memory leakage while outputing map point cloud
     {
         LOG(WARNING) << "Begin to output the generated map";
         pcTPtr pc_map_merged(new pcT), pc_map_gt_merged(new pcT);
@@ -972,7 +972,7 @@ int main(int argc, char **argv)
                 cfilter.get_pts_timestamp_ratio_in_frame(cblock_frames[i]->pc_raw, true);
             else if (FLAGS_motion_compensation_method == 2)                                      //calculate from azimuth
                 cfilter.get_pts_timestamp_ratio_in_frame(cblock_frames[i]->pc_raw, false, 90.0); //HESAI Lidar: 90.0 (y+ axis, clockwise), Velodyne Lidar: 180.0
-            if (FLAGS_write_out_map_on)
+            if (true)
             {
                 if (FLAGS_motion_compensation_method > 0 && i > 0)
                 {
@@ -1008,13 +1008,13 @@ int main(int argc, char **argv)
         if (FLAGS_map_filter_on)                        //TODO: add more map based operation //1.generate 2D geo-referenced image //2.intensity generalization
             cfilter.sor_filter(pc_map_merged, 20, 2.0); //sor filtering before output
         std::string output_merged_map_file = output_pc_folder + "/" + "merged_map.pcd";
-        if (FLAGS_write_out_map_on)
+        if (true)
             dataio.write_pcd_file(output_merged_map_file, pc_map_merged); //write merged map point cloud
         std::string output_merged_gt_map_file = output_pc_folder + "/" + "merged_gt_map.pcd";
         if (FLAGS_write_out_gt_map_on)
             dataio.write_pcd_file(output_merged_gt_map_file, pc_map_gt_merged); //write merged map point cloud
 #if OPENCV_ON
-        if (FLAGS_write_out_map_on)
+        if (true)
         {
             cv::Mat map_2d;
             map_2d = cfilter.generate_2d_map(pc_map_merged, 1, FLAGS_screen_width, FLAGS_screen_height, 20, 1000, -FLT_MAX, FLT_MAX, true);

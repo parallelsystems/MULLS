@@ -5,7 +5,7 @@
 sequence_id=00
 
 #experiment unique name
-exp_id=xxx_id
+exp_id=luminar
 
 #data path (base folder)
 diskbase=/media/yuepan/BackupPlus/Data/
@@ -49,14 +49,16 @@ gt_body_pose_file=${project_folder}/${sequence_id}.txt #kitti ground truth file
 calib_file=${project_folder}/calib.txt
 
 #input config file path
-#config_file=./script/config/lo_gflag_list_example_demo.txt
-#config_file=./script/config/lo_gflag_list_kitti_urban.txt
-config_file=./script/config/lo_gflag_list_kitti_highway.txt
-#config_file=./script/config/lo_gflag_list_kitti_ultrafast.txt
-#config_file=./script/config/lo_gflag_list_16.txt
-#config_file=./script/config/lo_gflag_list_32.txt
-#config_file=./script/config/lo_gflag_list_64.txt
-#config_file=./script/config/lo_gflag_list_128.txt
+# config_file=./script/config/lo_gflag_list_example_demo.txt
+# config_file=./script/config/lo_gflag_list_kitti_urban.txt
+# this one seems to work best
+# config_file=./script/config/lo_gflag_list_kitti_highway.txt
+# config_file=./script/config/lo_gflag_list_kitti_ultrafast.txt
+# config_file=./script/config/lo_gflag_list_16.txt
+# config_file=./script/config/lo_gflag_list_32.txt
+# config_file=./script/config/lo_gflag_list_64.txt
+# config_file=./script/config/lo_gflag_list_128.txt
+config_file=./script/config/luminar.txt
 
 #input the frame you'd like to use
 frame_begin=0
@@ -110,7 +112,7 @@ ls ${pc_folder} >> ${pc_folder}_filelist.txt
 --frame_num_end=${frame_end} \
 --frame_step=${frame_step} \
 --flagfile=${config_file} \
---real_time_viewer_on=1 \
+--real_time_viewer_on=false \
 --gt_in_lidar_frame=0 \
 --gt_oxts_format=0 \
 --write_out_map_on=0 \
